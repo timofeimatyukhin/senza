@@ -669,11 +669,14 @@
   }
 
   function checkTripleTapIndicator() {
-    if (gameState.activePointerIds.size >= 3) {
-      showTripleTapIndicator();
-    } else {
-      hideTripleTapIndicator();
-    }
+    const isTriple = gameState.activePointerIds.size >= 3;
+    if (isTriple) showTripleTapIndicator(); else hideTripleTapIndicator();
+
+    // Make MENU button text red when 3+ touches active
+    const btnBackLeft = document.getElementById('btnBackLeft');
+    const btnBackRight = document.getElementById('btnBackRight');
+    if (btnBackLeft) btnBackLeft.style.color = isTriple ? 'red' : '';
+    if (btnBackRight) btnBackRight.style.color = isTriple ? 'red' : '';
   }
 
   function handlePlayerInput(player, action) {

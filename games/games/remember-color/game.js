@@ -353,8 +353,14 @@
   }
 
   function checkTripleTapIndicatorRememberColor(activePointers) {
-    if (activePointers && activePointers.size >= 3) showTripleTapIndicatorRememberColor();
-    else hideTripleTapIndicatorRememberColor();
+    const isTriple = activePointers && activePointers.size >= 3;
+    if (isTriple) showTripleTapIndicatorRememberColor(); else hideTripleTapIndicatorRememberColor();
+
+    // Make MENU button text red when 3+ touches active
+    const btnBackLeft = document.getElementById('btnBackLeft');
+    const btnBackRight = document.getElementById('btnBackRight');
+    if (btnBackLeft) btnBackLeft.style.color = isTriple ? 'red' : '';
+    if (btnBackRight) btnBackRight.style.color = isTriple ? 'red' : '';
   }
 
   // Обновление статуса выбора
