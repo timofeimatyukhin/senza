@@ -128,8 +128,6 @@
     updateDisplay();
     bindEvents();
     showDifficultyModal();
-    // create multitouch test panel for phone testing
-    createMultitouchPanelSnake();
     console.log('Игра инициализирована');
   }
 
@@ -654,56 +652,7 @@
 
   // indicator removed — keeping default UI
 
-  // Multitouch test panel: 4 buttons in center that highlight on pointerdown
-  function createMultitouchPanelSnake() {
-    if (document.getElementById('multitouch-panel-snake')) return;
-    const panel = document.createElement('div');
-    panel.id = 'multitouch-panel-snake';
-    panel.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:repeat(2,120px);grid-gap:16px;padding:12px;z-index:100000;pointer-events:auto;';
-
-    const pointerMap = new Map();
-
-    for (let i = 0; i < 4; i++) {
-      const btn = document.createElement('button');
-      btn.className = 'mt-btn';
-      btn.dataset.index = i;
-      btn.textContent = `Btn ${i+1}`;
-      btn.style.cssText = 'width:120px;height:120px;border-radius:12px;background:#eee;border:1px solid #ccc;font-weight:700;';
-
-      btn.addEventListener('pointerdown', (e) => {
-        e.preventDefault();
-        pointerMap.set(e.pointerId, btn);
-        btn.style.background = '#ffcc00';
-      }, { passive: false });
-
-      btn.addEventListener('pointerup', (e) => {
-        const stored = pointerMap.get(e.pointerId);
-        if (stored) {
-          stored.style.background = '#eee';
-          pointerMap.delete(e.pointerId);
-        }
-      });
-
-      btn.addEventListener('pointercancel', (e) => {
-        const stored = pointerMap.get(e.pointerId);
-        if (stored) {
-          stored.style.background = '#eee';
-          pointerMap.delete(e.pointerId);
-        }
-      });
-
-      // mouse support
-      btn.addEventListener('mousedown', (e) => {
-        if (e.button !== 0) return;
-        btn.style.background = '#ffcc00';
-      });
-      btn.addEventListener('mouseup', () => btn.style.background = '#eee');
-
-      panel.appendChild(btn);
-    }
-
-    document.body.appendChild(panel);
-  }
+  
 
   function handlePlayerInput(player, action) {
     if (action === 'left') {
