@@ -341,7 +341,7 @@
       if (document.getElementById('multitouch-panel-remember')) return;
       const panel = document.createElement('div');
       panel.id = 'multitouch-panel-remember';
-      panel.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:repeat(2,100px);grid-gap:12px;padding:10px;z-index:100000;pointer-events:auto;';
+      panel.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:repeat(2,120px);grid-gap:16px;padding:12px;z-index:100000;pointer-events:auto;';
 
       const pointerMap = new Map();
 
@@ -349,19 +349,19 @@
         const btn = document.createElement('button');
         btn.className = 'mt-btn-remember';
         btn.dataset.index = i;
-        btn.textContent = `B${i+1}`;
-        btn.style.cssText = 'width:100px;height:100px;border-radius:8px;background:#f3f3f3;border:1px solid #ccc;font-weight:700;';
+        btn.textContent = `Btn ${i+1}`;
+        btn.style.cssText = 'width:120px;height:120px;border-radius:12px;background:#eee;border:1px solid #ccc;font-weight:700;';
 
         btn.addEventListener('pointerdown', (e) => {
           e.preventDefault();
           pointerMap.set(e.pointerId, btn);
-          btn.style.background = '#8be000';
+          btn.style.background = '#ffcc00';
         }, { passive: false });
 
         btn.addEventListener('pointerup', (e) => {
           const stored = pointerMap.get(e.pointerId);
           if (stored) {
-            stored.style.background = '#f3f3f3';
+            stored.style.background = '#eee';
             pointerMap.delete(e.pointerId);
           }
         });
@@ -369,16 +369,17 @@
         btn.addEventListener('pointercancel', (e) => {
           const stored = pointerMap.get(e.pointerId);
           if (stored) {
-            stored.style.background = '#f3f3f3';
+            stored.style.background = '#eee';
             pointerMap.delete(e.pointerId);
           }
         });
 
+        // mouse support
         btn.addEventListener('mousedown', (e) => {
           if (e.button !== 0) return;
-          btn.style.background = '#8be000';
+          btn.style.background = '#ffcc00';
         });
-        btn.addEventListener('mouseup', () => btn.style.background = '#f3f3f3');
+        btn.addEventListener('mouseup', () => btn.style.background = '#eee');
 
         panel.appendChild(btn);
       }
