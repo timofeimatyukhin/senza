@@ -280,6 +280,9 @@
   function enableFieldInteraction() {
     const cells = gameField.querySelectorAll('.field-cell');
     // Используем pointer events — они поддерживают мультитач и работают для touch/mouse
+    // Отслеживаем активные указатели для индикатора 3-х касаний
+    const activePointers = new Set();
+
     cells.forEach(cell => {
       const index = parseInt(cell.dataset.index);
       // click для десктопа
@@ -287,12 +290,22 @@
 
       // pointerdown для сенсорных устройств (мультитач)
       cell.addEventListener('pointerdown', (e) => {
-        if (e.pointerType !== 'touch') return; // оставляем мышиным кликам стандартную обработку
+        if (e.pointerType !== 'touch') return; // мыши обрабатываются click'ом
         e.preventDefault();
+        activePointers.add(e.pointerId);
         toggleCellSelection(index);
+        checkTripleTapIndicatorRememberColor(activePointers);
       }, { passive: false });
 
-      // Дополнительно можно обработать pointerup/cancel при необходимости (здесь не требуется)
+      cell.addEventListener('pointerup', (e) => {
+        if (activePointers.has(e.pointerId)) activePointers.delete(e.pointerId);
+        checkTripleTapIndicatorRememberColor(activePointers);
+      });
+
+      cell.addEventListener('pointercancel', (e) => {
+        if (activePointers.has(e.pointerId)) activePointers.delete(e.pointerId);
+        checkTripleTapIndicatorRememberColor(activePointers);
+      });
     });
   }
 
@@ -322,6 +335,26 @@
     }
 
     updateSelectionStatus();
+  }
+
+  // Индикатор для проверки мультитача (показывается при 3+ одновременных касаниях)
+  function showTripleTapIndicatorRememberColor() {
+    if (document.getElementById('triple-touch-indicator-remember')) return;
+    const el = document.createElement('div');
+    el.id = 'triple-touch-indicator-remember';
+    el.textContent = '3 touches detected';
+    el.style.cssText = `position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:#fff;padding:8px 12px;border-radius:8px;z-index:99999;font-weight:700;`;
+    document.body.appendChild(el);
+  }
+
+  function hideTripleTapIndicatorRememberColor() {
+    const el = document.getElementById('triple-touch-indicator-remember');
+    if (el) el.remove();
+  }
+
+  function checkTripleTapIndicatorRememberColor(activePointers) {
+    if (activePointers && activePointers.size >= 3) showTripleTapIndicatorRememberColor();
+    else hideTripleTapIndicatorRememberColor();
   }
 
   // Обновление статуса выбора

@@ -18,8 +18,8 @@
     paddleSpeed: 8,
     ballSize: 50, 
     paddleSize: { width: 30, height: 240 },
-    bonusSpawnInterval: 10000, // 10 секунд
-    bonusLifetime: 30000 // 30 секунд
+    bonusSpawnInterval: 1000, // 1 секунду
+    bonusLifetime: 10000 // 10 секунд
   };
 
   // СОСТОЯНИЕ ИГРЫ
@@ -492,6 +492,10 @@
     
     // Показываем уведомление
     showBonusNotification(bonus.type.name, player);
+    // Планируем автоматическое снятие бонуса через заданное время
+    setTimeout(() => {
+      removeActiveBonus(bonus.type.id, player);
+    }, GAME_CONFIG.bonusLifetime);
   }
 
   function createSecondBall() {
@@ -580,6 +584,56 @@
     const secondBallElement = document.getElementById('secondBall');
     if (secondBallElement) secondBallElement.remove();
     gameState.secondBall = null;
+  }
+
+  // Удаляет активный бонус и откатывает эффект для указанного игрока
+  function removeActiveBonus(bonusTypeId, player) {
+    // Удаляем бонус из списка активных (один экземпляр)
+    const idx = gameState.activeBonuses[player].indexOf(bonusTypeId);
+    if (idx !== -1) gameState.activeBonuses[player].splice(idx, 1);
+
+    // Откат эффекта по типу
+    switch (bonusTypeId) {
+      case 'paddle_long':
+        if (player === 'left') gameState.paddleLeft.height = gameState.originalPaddleHeight;
+        else gameState.paddleRight.height = gameState.originalPaddleHeight;
+        updatePaddleVisuals();
+        break;
+      case 'paddle_short':
+        const opponent = player === 'left' ? 'right' : 'left';
+        if (opponent === 'left') gameState.paddleLeft.height = gameState.originalPaddleHeight;
+        else gameState.paddleRight.height = gameState.originalPaddleHeight;
+        updatePaddleVisuals();
+        break;
+      case 'ball_fast':
+        if (gameState.ball) {
+          gameState.ball.vx = gameState.ball.vx / 1.5;
+          gameState.ball.vy = gameState.ball.vy / 1.5;
+        }
+        if (gameState.secondBall) {
+          gameState.secondBall.vx = gameState.secondBall.vx / 1.5;
+          gameState.secondBall.vy = gameState.secondBall.vy / 1.5;
+        }
+        break;
+      case 'ball_slow':
+        if (gameState.ball) {
+          gameState.ball.vx = gameState.ball.vx / 0.7;
+          gameState.ball.vy = gameState.ball.vy / 0.7;
+        }
+        if (gameState.secondBall) {
+          gameState.secondBall.vx = gameState.secondBall.vx / 0.7;
+          gameState.secondBall.vy = gameState.secondBall.vy / 0.7;
+        }
+        break;
+      case 'ball_double':
+        const secondBallElement = document.getElementById('secondBall');
+        if (secondBallElement) secondBallElement.remove();
+        gameState.secondBall = null;
+        break;
+      case 'controls_invert':
+        if (gameState.controlsInverted === player) gameState.controlsInverted = null;
+        break;
+    }
   }
 
   function updatePaddleVisuals() {

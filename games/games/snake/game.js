@@ -107,6 +107,9 @@
     gameStartTime: 0,
     foodSpawnTimer: 0,
     maxFood: 5 // Максимальное количество еды на поле
+    ,
+    // Набор активных указателей (pointerId) для проверки мультитача
+    activePointerIds: new Set()
   };
 
   // DOM ЭЛЕМЕНТЫ
@@ -575,11 +578,62 @@
     }
     
     // Добавляем обработчики для кнопок управления
+    // Поддержка мультитач: используем pointer events для touch и mouse events для десктопа
+    const activePointers = new Map();
     document.querySelectorAll('.control-btn-overlay').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const player = parseInt(e.currentTarget.dataset.player);
-        const action = e.currentTarget.dataset.action;
+      const player = parseInt(btn.dataset.player);
+      const action = btn.dataset.action;
+
+        // Touch и другие pointer типы (мультитач)
+        btn.addEventListener('pointerdown', (e) => {
+          if (e.pointerType !== 'touch') return; // mouse handled separately
+          e.preventDefault();
+          activePointers.set(e.pointerId, btn);
+          // Добавляем в глобальный набор активных указателей для проверки мультитача
+          gameState.activePointerIds.add(e.pointerId);
+          btn.classList.add('active');
+          handlePlayerInput(player, action);
+          // Проверяем индикатор на 3 одновременных тапа
+          checkTripleTapIndicator();
+        }, { passive: false });
+
+        btn.addEventListener('pointerup', (e) => {
+          if (e.pointerType !== 'touch') return;
+          const stored = activePointers.get(e.pointerId);
+          if (stored) {
+            stored.classList.remove('active');
+            activePointers.delete(e.pointerId);
+          }
+          // Удаляем из глобального набора
+          gameState.activePointerIds.delete(e.pointerId);
+          checkTripleTapIndicator();
+        });
+
+        btn.addEventListener('pointercancel', (e) => {
+          if (e.pointerType !== 'touch') return;
+          const stored = activePointers.get(e.pointerId);
+          if (stored) {
+            stored.classList.remove('active');
+            activePointers.delete(e.pointerId);
+          }
+          gameState.activePointerIds.delete(e.pointerId);
+          checkTripleTapIndicator();
+        });
+
+      // Mouse (desktop) - поддерживаем зажатие мыши
+      btn.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        e.preventDefault();
+        btn.classList.add('active');
         handlePlayerInput(player, action);
+      });
+
+      btn.addEventListener('mouseup', () => {
+        btn.classList.remove('active');
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        btn.classList.remove('active');
       });
     });
   }
@@ -596,6 +650,29 @@
         e.preventDefault();
         turnSnakeRight(i);
       }
+    }
+  }
+
+  // Индикатор для проверки мультитача: показывает сообщение при >= 3 одновременных указателей
+  function showTripleTapIndicator() {
+    if (document.getElementById('triple-touch-indicator-snake')) return;
+    const el = document.createElement('div');
+    el.id = 'triple-touch-indicator-snake';
+    el.textContent = '3 touches detected';
+    el.style.cssText = `position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:#fff;padding:8px 12px;border-radius:8px;z-index:99999;font-weight:700;`;
+    document.body.appendChild(el);
+  }
+
+  function hideTripleTapIndicator() {
+    const el = document.getElementById('triple-touch-indicator-snake');
+    if (el) el.remove();
+  }
+
+  function checkTripleTapIndicator() {
+    if (gameState.activePointerIds.size >= 3) {
+      showTripleTapIndicator();
+    } else {
+      hideTripleTapIndicator();
     }
   }
 
