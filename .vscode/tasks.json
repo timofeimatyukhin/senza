@@ -1,19 +1,8 @@
 {
     "version": "2.0.0",
     "tasks": [
-        {
-            "label": "Deploy to GitHub",
-            "type": "shell",
-            "command": "./auto-deploy.sh",
-            "group": "build",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
-            },
-            "problemMatcher": []
-        }
+        // Disabled automatic deploy task to prevent accidental auto-commits.
+        // To re-enable, restore the original task and the auto-deploy.sh script.
     ]
 }
 

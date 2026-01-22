@@ -1,20 +1,10 @@
 #!/bin/bash
+# AUTO-COMMITS DISABLED
+# This script previously performed automatic git add/commit/push.
+# To prevent accidental automatic commits, this script is now disabled.
 
-echo "🚀 Автоматическая загрузка изменений на GitHub..."
+echo "⚠️ auto-deploy.sh is disabled. Automatic commits/pushes are turned off."
+echo "If you need to enable it again, edit this file and remove the early exit."
 
-# Добавляем все изменения
-git add .
-
-# Создаем коммит с текущей датой
-git commit -m "Автоматическое обновление: $(date '+%Y-%m-%d %H:%M:%S')"
-
-# Отправляем на GitHub (нужна настройка аутентификации)
-git push origin main
-
-if [ $? -eq 0 ]; then
-    echo "✅ Изменения успешно загружены на GitHub!"
-    echo "🌐 Сайт обновится через 1-2 минуты: https://academintellekt-cmd.github.io/Senza/"
-else
-    echo "❌ Ошибка при загрузке. Используйте GitHub Desktop или веб-интерфейс."
-fi
+exit 0
 
