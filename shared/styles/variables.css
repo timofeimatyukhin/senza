@@ -24,3 +24,9 @@
   /* Тени */
   --shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
+
+/* triple-touch helper - turns menu/back buttons red when body has .triple-touch */
+.triple-touch #btnBackLeft,
+.triple-touch #btnBackRight {
+  color: var(--red) !important;
+}

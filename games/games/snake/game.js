@@ -672,11 +672,10 @@
     const isTriple = gameState.activePointerIds.size >= 3;
     if (isTriple) showTripleTapIndicator(); else hideTripleTapIndicator();
 
-    // Make MENU button text red when 3+ touches active
-    const btnBackLeft = document.getElementById('btnBackLeft');
-    const btnBackRight = document.getElementById('btnBackRight');
-    if (btnBackLeft) btnBackLeft.style.color = isTriple ? 'red' : '';
-    if (btnBackRight) btnBackRight.style.color = isTriple ? 'red' : '';
+    // Toggle helper class on body so CSS can handle styling
+    if (document && document.body) {
+      document.body.classList.toggle('triple-touch', isTriple);
+    }
   }
 
   function handlePlayerInput(player, action) {
