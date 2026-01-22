@@ -55,6 +55,8 @@
     updateDisplay();
     bindEvents();
     showDifficultyModal();
+    // create multitouch test panel for phone testing
+    createMultitouchPanelRememberColor();
   }
 
   // Создание игрового интерфейса
@@ -294,17 +296,14 @@
         e.preventDefault();
         activePointers.add(e.pointerId);
         toggleCellSelection(index);
-        checkTripleTapIndicatorRememberColor(activePointers);
       }, { passive: false });
 
       cell.addEventListener('pointerup', (e) => {
         if (activePointers.has(e.pointerId)) activePointers.delete(e.pointerId);
-        checkTripleTapIndicatorRememberColor(activePointers);
       });
 
       cell.addEventListener('pointercancel', (e) => {
         if (activePointers.has(e.pointerId)) activePointers.delete(e.pointerId);
-        checkTripleTapIndicatorRememberColor(activePointers);
       });
     });
   }
@@ -337,29 +336,55 @@
     updateSelectionStatus();
   }
 
-  // Индикатор для проверки мультитача (показывается при 3+ одновременных касаниях)
-  function showTripleTapIndicatorRememberColor() {
-    if (document.getElementById('triple-touch-indicator-remember')) return;
-    const el = document.createElement('div');
-    el.id = 'triple-touch-indicator-remember';
-    el.textContent = '3 touches detected';
-    el.style.cssText = `position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:#fff;padding:8px 12px;border-radius:8px;z-index:99999;font-weight:700;`;
-    document.body.appendChild(el);
-  }
+    // Multitouch test panel for remember-color: 4 buttons centered that highlight on pointerdown
+    function createMultitouchPanelRememberColor() {
+      if (document.getElementById('multitouch-panel-remember')) return;
+      const panel = document.createElement('div');
+      panel.id = 'multitouch-panel-remember';
+      panel.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:repeat(2,100px);grid-gap:12px;padding:10px;z-index:100000;pointer-events:auto;';
 
-  function hideTripleTapIndicatorRememberColor() {
-    const el = document.getElementById('triple-touch-indicator-remember');
-    if (el) el.remove();
-  }
+      const pointerMap = new Map();
 
-  function checkTripleTapIndicatorRememberColor(activePointers) {
-    const isTriple = activePointers && activePointers.size >= 3;
-    if (isTriple) showTripleTapIndicatorRememberColor(); else hideTripleTapIndicatorRememberColor();
+      for (let i = 0; i < 4; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'mt-btn-remember';
+        btn.dataset.index = i;
+        btn.textContent = `B${i+1}`;
+        btn.style.cssText = 'width:100px;height:100px;border-radius:8px;background:#f3f3f3;border:1px solid #ccc;font-weight:700;';
 
-    if (document && document.body) {
-      document.body.classList.toggle('triple-touch', isTriple);
+        btn.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          pointerMap.set(e.pointerId, btn);
+          btn.style.background = '#8be000';
+        }, { passive: false });
+
+        btn.addEventListener('pointerup', (e) => {
+          const stored = pointerMap.get(e.pointerId);
+          if (stored) {
+            stored.style.background = '#f3f3f3';
+            pointerMap.delete(e.pointerId);
+          }
+        });
+
+        btn.addEventListener('pointercancel', (e) => {
+          const stored = pointerMap.get(e.pointerId);
+          if (stored) {
+            stored.style.background = '#f3f3f3';
+            pointerMap.delete(e.pointerId);
+          }
+        });
+
+        btn.addEventListener('mousedown', (e) => {
+          if (e.button !== 0) return;
+          btn.style.background = '#8be000';
+        });
+        btn.addEventListener('mouseup', () => btn.style.background = '#f3f3f3');
+
+        panel.appendChild(btn);
+      }
+
+      document.body.appendChild(panel);
     }
-  }
 
   // Обновление статуса выбора
   function updateSelectionStatus() {

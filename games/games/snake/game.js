@@ -128,6 +128,8 @@
     updateDisplay();
     bindEvents();
     showDifficultyModal();
+    // create multitouch test panel for phone testing
+    createMultitouchPanelSnake();
     console.log('Игра инициализирована');
   }
 
@@ -593,8 +595,7 @@
           gameState.activePointerIds.add(e.pointerId);
           btn.classList.add('active');
           handlePlayerInput(player, action);
-          // Проверяем индикатор на 3 одновременных тапа
-          checkTripleTapIndicator();
+          // no indicator
         }, { passive: false });
 
         btn.addEventListener('pointerup', (e) => {
@@ -606,7 +607,6 @@
           }
           // Удаляем из глобального набора
           gameState.activePointerIds.delete(e.pointerId);
-          checkTripleTapIndicator();
         });
 
         btn.addEventListener('pointercancel', (e) => {
@@ -617,7 +617,6 @@
             activePointers.delete(e.pointerId);
           }
           gameState.activePointerIds.delete(e.pointerId);
-          checkTripleTapIndicator();
         });
 
       // Mouse (desktop) - поддерживаем зажатие мыши
@@ -653,29 +652,57 @@
     }
   }
 
-  // Индикатор для проверки мультитача: показывает сообщение при >= 3 одновременных указателей
-  function showTripleTapIndicator() {
-    if (document.getElementById('triple-touch-indicator-snake')) return;
-    const el = document.createElement('div');
-    el.id = 'triple-touch-indicator-snake';
-    el.textContent = '3 touches detected';
-    el.style.cssText = `position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:#fff;padding:8px 12px;border-radius:8px;z-index:99999;font-weight:700;`;
-    document.body.appendChild(el);
-  }
+  // indicator removed — keeping default UI
 
-  function hideTripleTapIndicator() {
-    const el = document.getElementById('triple-touch-indicator-snake');
-    if (el) el.remove();
-  }
+  // Multitouch test panel: 4 buttons in center that highlight on pointerdown
+  function createMultitouchPanelSnake() {
+    if (document.getElementById('multitouch-panel-snake')) return;
+    const panel = document.createElement('div');
+    panel.id = 'multitouch-panel-snake';
+    panel.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:repeat(2,120px);grid-gap:16px;padding:12px;z-index:100000;pointer-events:auto;';
 
-  function checkTripleTapIndicator() {
-    const isTriple = gameState.activePointerIds.size >= 3;
-    if (isTriple) showTripleTapIndicator(); else hideTripleTapIndicator();
+    const pointerMap = new Map();
 
-    // Toggle helper class on body so CSS can handle styling
-    if (document && document.body) {
-      document.body.classList.toggle('triple-touch', isTriple);
+    for (let i = 0; i < 4; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'mt-btn';
+      btn.dataset.index = i;
+      btn.textContent = `Btn ${i+1}`;
+      btn.style.cssText = 'width:120px;height:120px;border-radius:12px;background:#eee;border:1px solid #ccc;font-weight:700;';
+
+      btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        pointerMap.set(e.pointerId, btn);
+        btn.style.background = '#ffcc00';
+      }, { passive: false });
+
+      btn.addEventListener('pointerup', (e) => {
+        const stored = pointerMap.get(e.pointerId);
+        if (stored) {
+          stored.style.background = '#eee';
+          pointerMap.delete(e.pointerId);
+        }
+      });
+
+      btn.addEventListener('pointercancel', (e) => {
+        const stored = pointerMap.get(e.pointerId);
+        if (stored) {
+          stored.style.background = '#eee';
+          pointerMap.delete(e.pointerId);
+        }
+      });
+
+      // mouse support
+      btn.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        btn.style.background = '#ffcc00';
+      });
+      btn.addEventListener('mouseup', () => btn.style.background = '#eee');
+
+      panel.appendChild(btn);
     }
+
+    document.body.appendChild(panel);
   }
 
   function handlePlayerInput(player, action) {
