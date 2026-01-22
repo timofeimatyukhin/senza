@@ -8,22 +8,23 @@
     html, body { height: 100%; touch-action: pan-x pan-y; overscroll-behavior: none; }
     * { touch-action: pan-x pan-y; }
   </style>
-  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="../../../shared/styles/click-effect.css">
+  <link rel="stylesheet" href="../../../shared/styles/variables.css">
+  <script src="../../../shared/scripts/click-effect.js"></script>
   <link rel="stylesheet" href="style.css">
-  <script src="../../../common.js" defer></script>
   <script src="game.js" defer></script>
 </head>
 <body>
   <!-- HUD Left -->
   <aside class="hud hud-left">
     <div class="hud-row">
-      <button class="btn btn-ghost" id="menuLeft" aria-label="Меню" onclick="goToMenu()">← Меню</button>
+      <button class="btn btn-ghost" id="menuLeft" aria-label="Меню" onclick="goToMenu()"><p>← Меню</p></button>
       <div class="hud-center">
         <div id="turnLabelLeft" class="turn-label">Раунд · <span id="timerLeft">30</span>с</div>
         <div id="pointsLeft" class="points">Очки: 0</div>
         <div id="scoreLeft" class="score">Победы: 0 – 0</div>
       </div>
-      <button class="btn" id="newGameLeft">Новая партия ↻</button>
+      <button class="btn" id="newGameLeft"><p>Новая партия ↻</p></button>
     </div>
   </aside>
 
@@ -36,24 +37,24 @@
   <!-- HUD Right (повёрнут на 180°) -->
   <aside class="hud hud-right">
     <div class="hud-row hud-rotated">
-      <button class="btn btn-ghost" id="menuRight" aria-label="Меню" onclick="goToMenu()">← Меню</button>
+      <button class="btn btn-ghost" id="menuRight" aria-label="Меню" onclick="goToMenu()"><p>← Меню</p></button>
       <div class="hud-center">
         <div id="turnLabelRight" class="turn-label">Раунд · <span id="timerRight">30</span>с</div>
         <div id="pointsRight" class="points">Очки: 0</div>
         <div id="scoreRight" class="score">Победы: 0 – 0</div>
       </div>
-      <button class="btn" id="newGameRight">Новая партия ↻</button>
+      <button class="btn" id="newGameRight"><p>Новая партия ↻</p></button>
     </div>
   </aside>
 
   <!-- Модалка окончания -->
   <div id="endModal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modal-content">
+    <div class="modal-content" style="display: flex; flex-direction: column; align-items: center;justify-content: space-between;" >
       <h2 id="resultText"></h2>
-      <div id="scoresText" style="margin-top: 16px; font-size: 18px; font-weight: 600;"></div>
+      <div id="scoresText" style="margin-top: 16px; font-size: 28px; font-weight: 600;"></div>
       <div class="modal-actions">
-        <button id="newGameBtn" class="btn primary">Новая игра</button>
-        <button class="btn" onclick="goToMenu()">← Меню</button>
+        <button id="newGameBtn" style="width: 280px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 26px;" class="btn primary">Новая игра</button>
+        <button class="btn" style="width: 140px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 26px;" onclick="goToMenu()">← Меню</button>
       </div>
     </div>
   </div>

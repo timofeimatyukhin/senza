@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Senza - Интерактивные игры и развлечения</title>
     <link rel="stylesheet" href="shared/styles/fonts.css">
+    <link rel="stylesheet" href="shared/styles/click-effect.css"> <!-- стили для эффекта клика -->
+    <script src="shared/scripts/click-effect.js"></script>
     <link rel="icon" href="shared/img/logo_ruj.png">
     <style>
         :root { 
             /* Фирменные цвета Senza */
             --red-dark:#C1032A; 
             --red:#FE112E; 
-            --orange:#FE7800; 
+            --orange:rgb(254, 120, 0); 
             --yellow:#FFE23F; 
             /* Дополнительные цвета */
             --blue:#1E6FE3; 
@@ -36,13 +38,13 @@
         .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px}
         .logo-wrap{display:flex;align-items:center;gap:12px}
         .logo-wrap img{height:34px}
-        .brand{font-family:'Bowler','Involve',sans-serif;font-size:20px;letter-spacing:.5px;color:#f5f7fb}
+        .brand{font-family:'Bowler','Involve',sans-serif;font-size:26px;letter-spacing:.5px;color:#f5f7fb}
 
         .hero{padding:72px 0 36px;background:var(--bg)}
         .hero h1{font-family:'Bowler','Involve',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1.05;margin:0 0 16px;text-align:center}
         .hero p.lead{font-size:clamp(16px,2.2vw,20px);color:var(--muted);margin:0 0 26px;text-align:center}
 
-        .btn{appearance:none;border:none;cursor:pointer;padding:14px 20px;border-radius:14px;background:var(--orange);color:#fff;font-weight:700;box-shadow:var(--shadow);transform:translateY(0);transition:transform .15s ease,box-shadow .2s ease,background .2s ease;text-decoration:none}
+        .btn{display: flex; align-items: center; justify-content: center; width: auto; font-size: 20px; height: 60px; appearance:none;border:none;cursor:pointer;padding:14px 20px;border-radius:14px;background:var(--orange);color:#fff;font-weight:700;box-shadow:var(--shadow);transform:translateY(0);transition:transform .15s ease,box-shadow .2s ease,background .2s ease;text-decoration:none}
         .btn:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(254,120,0,0.35);text-decoration:none}
         .btn:active{transform:translateY(0);box-shadow:0 6px 20px rgba(254,120,0,0.35)}
         .btn-outline{background:transparent;color:var(--orange);border:2px solid var(--orange);box-shadow:none;text-decoration:none}
@@ -50,7 +52,7 @@
 
         .section{padding:56px 0}
         .section h2{font-family:'Bowler','Involve',sans-serif;font-size:clamp(28px,3.6vw,40px);margin:0 0 18px;text-align:center}
-        .section p.section-lead{color:var(--muted);margin:0 0 12px;text-align:center}
+        .section p.section-lead{color:var(--muted);margin:0 0 12px;text-align:center; font-size: 20px;}
 
         .nav-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:24px;margin-top:40px}
         .nav-card{background:var(--card);border:1px solid rgba(0,0,0,0.06);border-radius:20px;padding:32px;text-decoration:none;color:var(--text);transition:all 0.3s ease;box-shadow:var(--shadow);position:relative;overflow:hidden}
@@ -73,7 +75,7 @@
     <header class="header">
         <div class="container header-inner">
             <div class="logo-wrap">
-                <img src="shared/img/logo_ru_horizontal.png" alt="Senza" />
+                <img style="width: 180px; height: 103px;"src="shared/img/logo_ru_horizontal.png" alt="Senza" />
                 <div class="brand">Senza</div>
             </div>
         </div>
@@ -93,24 +95,30 @@
             
             <div class="nav-cards">
                 <a href="games/index.html" class="nav-card">
-                    <span class="icon">🎮</span>
-                    <h3>Игровая платформа</h3>
-                    <p>Коллекция развивающих игр для детей и взрослых. Играйте в браузере или на сенсорном столе.</p>
-                    <span class="btn">Играть</span>
+                    <div style="display: flex; align-items: start; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🎮</span>
+                        <h3>Игровая платформа</h3>
+                        <p style="font-size: 20px;">Коллекция развивающих игр для детей и взрослых. Играйте в браузере или на сенсорном столе.</p>
+                        <span class="btn">Играть</span>
+                    </div>
                 </a>
                 
                 <a href="website/index.html" class="nav-card">
-                    <span class="icon">🌐</span>
-                    <h3>Маркетинговый сайт</h3>
-                    <p>Информация о продукте Senza, технические характеристики и коммерческие предложения.</p>
-                    <span class="btn">Узнать больше</span>
+                    <div style="display: flex; align-items: start; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🌐</span>
+                        <h3>Маркетинговый сайт</h3>
+                        <p style="font-size: 20px;">Информация о продукте Senza, технические характеристики и коммерческие предложения.</p>
+                        <span class="btn">Узнать больше</span>
+                    </div>
                 </a>
                 
                 <a href="website/events.html" class="nav-card">
-                    <span class="icon">🎭</span>
-                    <h3>Решения для мероприятий</h3>
-                    <p>Интерактивные активности для event-агентств: корпоративы, выставки, презентации и частные события.</p>
-                    <span class="btn">Для мероприятий</span>
+                    <div style="display: flex; align-items: start; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🎭</span>
+                        <h3>Решения для мероприятий</h3>
+                        <p style="font-size: 20px;">Интерактивные активности для event-агентств: корпоративы, выставки, презентации и частные события.</p>
+                        <span class="btn">Для мероприятий</span>
+                    </div>
                 </a>
             </div>
         </div>

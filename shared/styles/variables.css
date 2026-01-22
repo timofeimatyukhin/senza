@@ -1,0 +1,26 @@
+:root {
+  /* Фирменные цвета Senza */
+  --red-dark: #C1032A;
+  --red: #FE112E;
+  --orange: #FE7800;
+  --orange-50: rgba(254, 120, 0, 0.5);
+  --orange-30: rgba(254, 120, 0, 0.3);
+  --yellow: #FFE23F;
+  
+  /* Дополнительные цвета */
+  --blue: #1E6FE3;
+  --orange-dark: #EF780D;
+  --gray-dark: rgb(45, 45, 45);
+  --gray-dark-30: rgba(45, 45, 45, 0.3);
+  
+  /* Системные цвета */
+  --bg: #f4f6fa;
+  --text: #2D2D2D;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --line: #E5E7EB;
+  --accent: #FF6A00;
+  
+  /* Тени */
+  --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}

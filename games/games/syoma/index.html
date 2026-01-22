@@ -3,24 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Сёма</title>
+  <title>Цветовой код</title>
   <style>
     html, body { height: 100%; touch-action: pan-x pan-y; overscroll-behavior: none; }
     * { touch-action: pan-x pan-y; }
   </style>
   <link rel="stylesheet" href="../../../assets/styles/main.css" />
+  <link rel="stylesheet" href="../../../shared/styles/click-effect.css">
+  <link rel="stylesheet" href="../../../shared/styles/variables.css">
+  <script src="../../../shared/scripts/click-effect.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- HUD Left -->
   <aside class="hud hud-left">
     <div class="hud-row">
-      <button class="btn btn-ghost" id="btnBackLeft">← Меню</button>
-      <div class="hud-center">
-        <div class="turn-label"><span id="turnLabelLeft">🧠 Сёма </span><span class="score" id="scoreLeft">Уровень: 1</span></div>
+      <div class="hud-row__wrapper">
+        <button class="btn btn-ghost" id="btnBackLeft">← Меню</button>
+        <div class="hud-center">
+          <div class="turn-label"><span id="turnLabelLeft"></span><span class="score" id="scoreLeft">Уровень: 1</span></div>
+        </div>
+        <button class="btn" id="btnNewLeft">Новая партия ↻</button>
+        <button class="hud-check-btn" id="hudCheckLeft" style="display: none;">Проверить</button>
       </div>
-      <button class="btn" id="btnNewLeft">Новая партия ↻</button>
-      <button class="hud-check-btn" id="hudCheckLeft" style="display: none;">Проверить</button>
     </div>
   </aside>
 
@@ -34,30 +39,32 @@
   <!-- HUD Right (повёрнут на 180°) -->
   <aside class="hud hud-right">
     <div class="hud-row hud-rotated">
-      <button class="btn btn-ghost" id="btnBackRight">← Меню</button>
-      <div class="hud-center">
-        <div class="turn-label"><span id="turnLabelRight">🧠 Сёма </span><span class="score" id="scoreRight">Уровень: 1</span></div>
+      <div class="hud-row__wrapper">
+        <button class="btn btn-ghost" id="btnBackRight">← Меню</button>
+        <div class="hud-center">
+          <div class="turn-label"><span id="turnLabelRight"></span><span class="score" id="scoreRight">Уровень: 1</span></div>
+        </div>
+        <button class="btn" id="btnNewRight">Новая партия ↻</button>
+        <button class="hud-check-btn" id="hudCheckRight" style="display: none;">Проверить</button>
       </div>
-      <button class="btn" id="btnNewRight">Новая партия ↻</button>
-      <button class="hud-check-btn" id="hudCheckRight" style="display: none;">Проверить</button>
     </div>
   </aside>
 
   <!-- Модальное окно выбора настроек -->
   <div id="difficultyModal" class="modal-backdrop" style="display: flex;">
     <div class="modal">
-      <div class="modal-title">🧠 Сёма</div>
+      <div class="modal-title">🔢 Цветовой код</div>
       <div class="modal-subtitle">Выберите настройки игры</div>
       <div class="snake-settings">
         <div class="setting-group">
-          <h3>Режим игры:</h3>
+          <h3 style="font-size: 24px;" >Режим игры:</h3>
           <div class="mode-options">
             <button class="mode-option selected" data-mode="easy">Простой</button>
             <button class="mode-option" data-mode="hard">Сложный</button>
           </div>
         </div>
         <div class="setting-group">
-          <h3>Количество игроков:</h3>
+          <h3 style="font-size: 24px;">Количество игроков:</h3>
           <div class="player-options">
             <button class="player-option selected" data-players="1">1 игрок</button>
             <button class="player-option" data-players="2">2 игрока</button>
@@ -72,7 +79,7 @@
 
   <!-- Модальное окно результатов -->
   <div id="modalBackdrop" class="modal-backdrop" hidden>
-    <div class="modal">
+    <div class="modal modal-end">
       <h2 class="modal-title" id="modalTitle">Игра окончена!</h2>
       <p class="modal-subtitle" id="modalSubtitle">Финальный счёт: 0</p>
       <div class="modal-actions">

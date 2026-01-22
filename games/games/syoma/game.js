@@ -2,8 +2,8 @@
 (() => {
   // КОНФИГУРАЦИЯ ИГРЫ
   const GAME_CONFIG = {
-    name: 'Сёма',
-    icon: '🧠',
+    name: 'Цветовой код',
+    icon: '🔢',
     colors: [
       { name: 'red', value: '#FE112E', display: 'Красный', sector: 'top-left' },
       { name: 'blue', value: '#1E6FE3', display: 'Синий', sector: 'top-right' },
@@ -84,7 +84,7 @@
           <div class="sector bottom-right" data-color="yellow"></div>
         </div>
         <div class="players-section" id="playersSection">
-          <div style="grid-column: 1/-1; text-align: center; color: white; font-size: 18px;">
+          <div style="grid-column: 1/-1; text-align: center; color: white; font-size: 28px;">
             Выберите количество игроков для начала игры
           </div>
         </div>

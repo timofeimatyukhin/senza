@@ -1,0 +1,23 @@
+.tap-circle {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  border-radius: 50%;
+  background-color: var(--orange, rgba(255, 106, 0, 0.5)); /* fallback если --orange не определён */
+  pointer-events: none;
+  z-index: 999999;
+  animation: tapGrow 0.3s ease-out forwards;
+}
+
+@keyframes tapGrow { /* Анимация расширения и исчезновения */
+  from {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}

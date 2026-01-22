@@ -336,104 +336,84 @@
     // Найти все кнопки управления и привязать к ним обработчики
     const controlButtons = document.querySelectorAll('.control-btn');
     
-    // Универсальный обработчик для кнопок (click и touch)
-    const addButtonHandler = (element, handler) => {
-      if (!element) return;
-      
-      element.addEventListener('click', handler);
-      element.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        handler(e);
-      });
-    };
+    // Объект для отслеживания активных касаний
+    const activeTouches = new Map();
     
-    // Touch события для мультитача
-    const activeButtons = new Set();
-    
-    document.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      
-      Array.from(e.changedTouches).forEach(touch => {
-        const element = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (element && element.classList.contains('control-btn')) {
-          const playerIndex = parseInt(element.dataset.player);
-          const action = element.dataset.action;
-          
-          if (!gameState.isPlaying || !gameState.planes[playerIndex] || !gameState.planes[playerIndex].isAlive) {
-            return;
-          }
-          
-          const buttonId = `${playerIndex}-${action}`;
-          if (!activeButtons.has(buttonId)) {
-            activeButtons.add(buttonId);
-            element.classList.add('active');
-            
-            if (action === 'left' || action === 'right') {
-              gameState.keysPressed[`${playerIndex}_${action}`] = true;
-            } else if (action === 'shoot') {
-              shootBullet(playerIndex);
-            }
-          }
-        }
-      });
-    }, { passive: false });
-    
-    document.addEventListener('touchend', (e) => {
-      Array.from(e.changedTouches).forEach(touch => {
-        const element = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (element && element.classList.contains('control-btn')) {
-          const playerIndex = parseInt(element.dataset.player);
-          const action = element.dataset.action;
-          const buttonId = `${playerIndex}-${action}`;
-          activeButtons.delete(buttonId);
-          element.classList.remove('active');
-          
-          if (action === 'left' || action === 'right') {
-            gameState.keysPressed[`${playerIndex}_${action}`] = false;
-          }
-        }
-      });
-    }, { passive: false });
-    
-    document.addEventListener('touchcancel', (e) => {
-      Array.from(e.changedTouches).forEach(touch => {
-        const element = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (element && element.classList.contains('control-btn')) {
-          const playerIndex = parseInt(element.dataset.player);
-          const action = element.dataset.action;
-          const buttonId = `${playerIndex}-${action}`;
-          activeButtons.delete(buttonId);
-          element.classList.remove('active');
-          
-          if (action === 'left' || action === 'right') {
-            gameState.keysPressed[`${playerIndex}_${action}`] = false;
-          }
-        }
-      });
-    }, { passive: false });
-    
-    // Click события для десктопа
+    // Обработчики для каждой кнопки
     controlButtons.forEach(btn => {
       const playerIndex = parseInt(btn.dataset.player);
       const action = btn.dataset.action;
       
       if (action === 'left' || action === 'right') {
-        // Обработчики для зажатия кнопок поворота
+        // Touch события для мобильных (зажатие)
+        btn.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          if (!gameState.isPlaying || !gameState.planes[playerIndex] || !gameState.planes[playerIndex].isAlive) {
+            return;
+          }
+          
+          const touch = e.changedTouches[0];
+          activeTouches.set(touch.identifier, { btn, playerIndex, action });
+          gameState.keysPressed[`${playerIndex}_${action}`] = true;
+          btn.classList.add('active');
+        }, { passive: false });
+        
+        btn.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          const touch = e.changedTouches[0];
+          if (activeTouches.has(touch.identifier)) {
+            activeTouches.delete(touch.identifier);
+            gameState.keysPressed[`${playerIndex}_${action}`] = false;
+            btn.classList.remove('active');
+          }
+        }, { passive: false });
+        
+        btn.addEventListener('touchcancel', (e) => {
+          const touch = e.changedTouches[0];
+          if (activeTouches.has(touch.identifier)) {
+            activeTouches.delete(touch.identifier);
+            gameState.keysPressed[`${playerIndex}_${action}`] = false;
+            btn.classList.remove('active');
+          }
+        }, { passive: false });
+        
+        // Mouse события для десктопа (зажатие)
         btn.addEventListener('mousedown', () => {
+          if (!gameState.isPlaying || !gameState.planes[playerIndex] || !gameState.planes[playerIndex].isAlive) {
+            return;
+          }
           gameState.keysPressed[`${playerIndex}_${action}`] = true;
           btn.classList.add('active');
         });
+        
         btn.addEventListener('mouseup', () => {
           gameState.keysPressed[`${playerIndex}_${action}`] = false;
           btn.classList.remove('active');
         });
+        
         btn.addEventListener('mouseleave', () => {
           gameState.keysPressed[`${playerIndex}_${action}`] = false;
           btn.classList.remove('active');
         });
+        
       } else if (action === 'shoot') {
-        // Обработчик для выстрела
-        addButtonHandler(btn, () => shootBullet(playerIndex));
+        // Touch события для мобильных (одиночный тап)
+        btn.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          if (!gameState.isPlaying || !gameState.planes[playerIndex] || !gameState.planes[playerIndex].isAlive) {
+            return;
+          }
+          shootBullet(playerIndex);
+        }, { passive: false });
+        
+        // Click события для десктопа
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (!gameState.isPlaying || !gameState.planes[playerIndex] || !gameState.planes[playerIndex].isAlive) {
+            return;
+          }
+          shootBullet(playerIndex);
+        });
       }
     });
   }

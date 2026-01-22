@@ -279,30 +279,48 @@
   // Включение интерактивности поля
   function enableFieldInteraction() {
     const cells = gameField.querySelectorAll('.field-cell');
+    // Используем pointer events — они поддерживают мультитач и работают для touch/mouse
     cells.forEach(cell => {
+      const index = parseInt(cell.dataset.index);
+      // click для десктопа
       cell.addEventListener('click', handleCellClick);
+
+      // pointerdown для сенсорных устройств (мультитач)
+      cell.addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'touch') return; // оставляем мышиным кликам стандартную обработку
+        e.preventDefault();
+        toggleCellSelection(index);
+      }, { passive: false });
+
+      // Дополнительно можно обработать pointerup/cancel при необходимости (здесь не требуется)
     });
   }
 
   // Обработка клика по клетке
   function handleCellClick(e) {
     if (gameState.gamePhase !== 'remembering') return;
-    
     const cell = e.target;
     const index = parseInt(cell.dataset.index);
-    
+    toggleCellSelection(index);
+  }
+
+  // Переключает выбор клетки по индексу (используется и для click и для pointerdown)
+  function toggleCellSelection(index) {
+    if (gameState.gamePhase !== 'remembering') return;
+    const cells = gameField.querySelectorAll('.field-cell');
+    const cell = cells[index];
+    if (!cell) return;
+
     if (gameState.playerSelections.includes(index)) {
-      // Убираем из выбора
       gameState.playerSelections = gameState.playerSelections.filter(i => i !== index);
       cell.classList.remove('selected');
     } else {
-      // Добавляем в выбор
       if (gameState.playerSelections.length < gameState.currentDifficulty) {
         gameState.playerSelections.push(index);
         cell.classList.add('selected');
       }
     }
-    
+
     updateSelectionStatus();
   }
 

@@ -9,17 +9,20 @@
     * { touch-action: pan-x pan-y; }
   </style>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../../../shared/styles/click-effect.css">
+  <link rel="stylesheet" href="../../../shared/styles/variables.css">
+  <script src="../../../shared/scripts/click-effect.js"></script>
 </head>
 <body>
   <!-- HUD Left -->
   <aside class="hud hud-left">
     <div class="hud-row">
-      <button class="btn btn-ghost" id="btnBackLeft" aria-label="Вернуться в меню">← Меню</button>
+      <button class="btn btn-ghost" style="font-size: 28px;" id="btnBackLeft" aria-label="Вернуться в меню">← Меню</button>
       <div class="hud-center">
         <div class="turn-label"><span id="turnLabelLeft">🎨 Запомни цвет </span><span class="score" id="scoreLeft">Уровень: 1</span></div>
       </div>
       <button class="btn" id="btnNewLeft" aria-label="Новая партия" style="display: none;">Новая партия ↻</button>
-      <button class="hud-check-btn" id="hudCheckLeft" style="display: none;">Проверить</button>
+      <button class="hud-check-btn" id="hudCheckLeft" style="display: none; font-size: 28px;">Проверить</button>
     </div>
   </aside>
 
@@ -33,46 +36,48 @@
   <!-- HUD Right (повёрнут на 180°) -->
   <aside class="hud hud-right">
     <div class="hud-row hud-rotated">
-      <button class="btn btn-ghost" id="btnBackRight" aria-label="Вернуться в меню">← Меню</button>
+      <button class="btn btn-ghost" style="font-size: 28px;" id="btnBackRight" aria-label="Вернуться в меню">← Меню</button>
       <div class="hud-center">
         <div class="turn-label"><span id="turnLabelRight">🎨 Запомни цвет </span><span class="score" id="scoreRight">Уровень: 1</span></div>
       </div>
       <button class="btn" id="btnNewRight" aria-label="Новая партия" style="display: none;">Новая партия ↻</button>
-      <button class="hud-check-btn" id="hudCheckRight" style="display: none;">Проверить</button>
+      <button class="hud-check-btn" id="hudCheckRight" style="display: none; font-size: 28px;">Проверить</button>
     </div>
   </aside>
 
   <!-- Модальное окно выбора сложности -->
   <div id="difficultyModal" class="modal-backdrop" role="dialog" aria-modal="true" style="display: flex;">
     <div class="modal">
-      <div class="modal-title">🎨 Запомни цвет</div>
-      <div class="modal-subtitle">Запомни позиции целевого цвета на поле 5×5!</div>
-      
-      <div class="difficulty-grid">
-        <button class="difficulty-option" data-level="2">
-          <div class="difficulty-name">Лёгкий</div>
-          <div class="difficulty-count">2</div>
-        </button>
-        <button class="difficulty-option" data-level="4">
-          <div class="difficulty-name">Средний</div>
-          <div class="difficulty-count">4</div>
-        </button>
-        <button class="difficulty-option" data-level="6">
-          <div class="difficulty-name">Высокий</div>
-          <div class="difficulty-count">6</div>
-        </button>
-        <button class="difficulty-option" data-level="8">
-          <div class="difficulty-name">Экстра</div>
-          <div class="difficulty-count">8</div>
-        </button>
-        <button class="difficulty-option" data-level="10">
-          <div class="difficulty-name">Вассерман</div>
-          <div class="difficulty-count">10</div>
-        </button>
-      </div>
-      
-      <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="goToMenu()">← Меню</button>
+      <div class="modal-backdrop__wrapper">
+        <div class="modal-title">🎨 Запомни цвет</div>
+        <div class="modal-subtitle">Запомни позиции целевого цвета на поле 5×5!</div>
+        
+        <div class="difficulty-grid">
+          <button class="difficulty-option" data-level="2">
+            <div class="difficulty-name">Лёгкий</div>
+            <div class="difficulty-count">2</div>
+          </button>
+          <button class="difficulty-option" data-level="4">
+            <div class="difficulty-name">Средний</div>
+            <div class="difficulty-count">4</div>
+          </button>
+          <button class="difficulty-option" data-level="6">
+            <div class="difficulty-name">Высокий</div>
+            <div class="difficulty-count">6</div>
+          </button>
+          <button class="difficulty-option" data-level="8">
+            <div class="difficulty-name">Экстра</div>
+            <div class="difficulty-count">8</div>
+          </button>
+          <button class="difficulty-option" data-level="10">
+            <div class="difficulty-name">Вассерман</div>
+            <div class="difficulty-count">10</div>
+          </button>
+        </div>
+        
+        <div class="modal-actions">
+          <button class="btn btn-ghost" style="font-size: 36px;" onclick="goToMenu()">← Меню</button>
+        </div>
       </div>
     </div>
   </div>

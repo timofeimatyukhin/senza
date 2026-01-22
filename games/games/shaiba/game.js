@@ -1,12 +1,16 @@
 // ШАЙБА - игра для двух игроков
 (() => {
+  // ПУТИ К ИЗОБРАЖЕНИЯМ ДЛЯ ШАРОВ (оставьте пустыми, если не нужны изображения)
+  const PUCK_IMAGE_RED = '../../../shared/img/logo_ruj.png'; // Вставьте сюда путь к изображению для красного игрока
+  const PUCK_IMAGE_BLUE = '../../../shared/img/logo_ruj.png'; // Вставьте сюда путь к изображению для синего игрока
+  
   // КОНФИГУРАЦИЯ ИГРЫ
   const GAME_CONFIG = {
     name: 'Шайба',
     icon: '🏒',
-    puckRadius: 30, // Радиус шайбы (диаметр = 60px)
+    puckRadius: 60, // Радиус шайбы (диаметр = 120px)
     puckMass: 1.0, // Масса шайбы
-    gateSize: 90, // Размер ворот = 1.5 * диаметр шайбы (1.5 * 60 = 90)
+    gateSize: 180, // Размер ворот = 1.5 * диаметр шайбы (1.5 * 120 = 180)
     pucksPerPlayer: 6,
     friction: 0.98, // Трение (замедление)
     wallRestitution: 0.85, // Коэффициент отскока от стен
@@ -244,6 +248,22 @@
     puckElement.style.height = `${puck.radius * 2}px`;
     puckElement.style.left = `${puck.x - puck.radius}px`;
     puckElement.style.top = `${puck.y - puck.radius}px`;
+    
+    // Добавление изображения в шар, если путь указан
+    const imagePath = puck.color === 'red' ? PUCK_IMAGE_RED : PUCK_IMAGE_BLUE;
+    if (imagePath) {
+      const img = document.createElement('img');
+      img.className = 'puck-image';
+      img.src = imagePath;
+      img.onload = () => {
+        puckElement.style.background = 'transparent';
+        console.log(`Изображение для ${puck.color} шара загружено`);
+      };
+      img.onerror = () => {
+        console.error(`Ошибка загрузки изображения для ${puck.color} шара:`, imagePath);
+      };
+      puckElement.appendChild(img);
+    }
     
     if (gameField) {
       gameField.appendChild(puckElement);

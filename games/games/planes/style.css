@@ -49,19 +49,19 @@ body{
   text-align:center; min-height:0; gap:8px;
 }
 .turn-label{
-  font-weight:600; font-size:clamp(14px, 2vw, 18px);
+  font-weight:600; font-size:28px;
   writing-mode:vertical-rl; text-orientation:mixed;
   white-space:nowrap;
 }
 .turn-label span{display:inline-block;}
 .turn-label .score{
-  font-weight:600; font-size:clamp(14px, 2vw, 18px);
+  font-weight:600; font-size:28px;
   color:var(--accent); writing-mode:vertical-rl;
   text-orientation:mixed; display:inline-block;
   margin-top:1.5em;
 }
 .score{
-  font-size:clamp(14px, 2vw, 18px); font-weight:600;
+  font-size:28px; font-weight:600;
   color:var(--accent); writing-mode:vertical-rl;
   text-orientation:mixed; white-space:nowrap;
 }
@@ -72,7 +72,7 @@ body{
   background:#fff; color:var(--text);
   padding:8px 12px; border-radius:8px; font-weight:600;
   cursor:pointer; transition: all .2s ease; box-shadow: none;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
 }
 .btn:hover{ border-color:var(--accent); color:#fff; background:var(--accent); box-shadow:0 10px 20px rgba(255,106,0,.18); }
 .btn:active,
@@ -116,8 +116,8 @@ body{
   box-shadow:var(--shadow);
   text-align:center;
 }
-.modal-title{font-size:24px; font-weight:700; margin:0 0 8px 0; color:var(--text);}
-.modal-subtitle{font-size:16px; color:var(--muted); margin:0 0 24px 0;}
+.modal-title{font-size:40px; font-weight:700; margin:0 0 8px 0; color:var(--text);}
+.modal-subtitle{font-size:28px; color:var(--muted); margin:0 0 24px 0;}
 .modal-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
 
 /* Player settings */
@@ -145,7 +145,7 @@ body{
   padding: 12px 20px;
   border-radius: 12px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 28px;
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -170,7 +170,7 @@ body{
   margin-top: 8px;
   width: 100%;
   padding: 14px;
-  font-size: 18px;
+  font-size: 28px;
 }
 
 /* Кнопки управления игроков - размещены по углам */
@@ -197,10 +197,17 @@ body{
   border-radius: 12px;
   border: 2px solid var(--line);
   box-shadow: var(--shadow);
-  min-width: 200px;
-  max-width: 200px;
   pointer-events: auto;
   box-sizing: border-box;
+}
+
+.hud-row__wrapper {
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* Размещение по углам */
@@ -227,7 +234,7 @@ body{
 }
 
 .player-controls .player-info {
-  font-size: 16px;
+  font-size: 28px;
   padding: 8px 12px;
   border-radius: 8px;
   font-weight: 600;
@@ -255,8 +262,8 @@ body{
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 24px;
-  width: 80px;
-  height: 80px;
+  width: 140px;
+  height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -294,8 +301,8 @@ body{
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 90px;
-  right: 90px;
+  
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,10 +424,8 @@ body{
 /* Игровое поле */
 .game-field {
   position: relative;
-  width: min(calc(100vw - 260px), calc(100vh * 1.4 - 40px));
-  height: min(calc(100vw - 260px), calc(100vh - 40px));
-  max-width: calc(100vh * 1.4 - 40px);
-  max-height: calc(100vh - 40px);
+  width: 1450px;
+  height: 1450px;
   border-radius: 20px;
   background: linear-gradient(135deg, #87CEEB 0%, #98D8E8 50%, #B0E0E6 100%);
   border: 3px solid #4682B4;
@@ -712,11 +717,11 @@ body{
   }
   
   .turn-label {
-    font-size: 12px;
+    font-size: 28px;
   }
   
   .score {
-    font-size: 10px;
+    font-size: 28px;
   }
 }
 

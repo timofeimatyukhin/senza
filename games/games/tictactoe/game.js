@@ -74,6 +74,7 @@
       cell.appendChild(mark);
 
       cell.addEventListener('click', onCellClick);
+      cell.addEventListener('touchstart', onCellClick, { passive: true });
       boardEl.appendChild(cell);
     }
     updateHUD();
@@ -175,7 +176,8 @@
 
   function switchTurn(){
     state.turn = state.turn === 'X' ? 'O' : 'X';
-    renderBoard();
+    updateHUD();
+    showHighlights();
   }
 
   function checkWin(t){

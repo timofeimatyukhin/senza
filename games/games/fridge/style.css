@@ -70,6 +70,14 @@ body {
 .hud-rotated {
   transform: rotate(180deg);
 }
+.hud-row__wrapper {
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .hud-center {
   flex: 1;
@@ -82,7 +90,7 @@ body {
 
 .turn-label {
   font-weight: 600;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   writing-mode: vertical-rl;
   text-orientation: mixed;
   white-space: nowrap;
@@ -100,7 +108,7 @@ body {
 
 .turn-label .score {
   font-weight: 600;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   color: var(--accent);
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -119,7 +127,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all .2s ease;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   font-family: inherit;
 }
 
@@ -254,25 +262,31 @@ body {
 }
 
 .modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 600px;
+  height: 300px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 32px;
-  max-width: 400px;
+  max-width: 600px;
   width: 90%;
   text-align: center;
   box-shadow: var(--shadow);
 }
 
 .modal-title {
-  font-size: 28px;
+  font-size: 40px;
   font-weight: 600;
   margin-bottom: 12px;
   color: var(--text);
 }
 
 .modal-subtitle {
-  font-size: 18px;
+  font-size: 28px;
   color: var(--text);
   margin-bottom: 24px;
 }
@@ -322,16 +336,16 @@ body {
   }
   
   .turn-label {
-    font-size: clamp(14px, 2vw, 18px);
+    font-size: 28px;
   }
   
   .turn-label .score {
-    font-size: clamp(14px, 2vw, 18px);
+    font-size: 28px;
   }
   
   .hud .btn {
     padding: 6px 10px;
-    font-size: clamp(14px, 2vw, 18px);
+    font-size: 28px;
     max-height: 34px;
   }
 }

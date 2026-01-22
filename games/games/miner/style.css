@@ -45,21 +45,30 @@ body{
   text-align:center; min-height:0; gap:8px;
 }
 .turn-label{
-  font-weight:600; font-size:clamp(14px, 2vw, 18px);
+  font-weight:600; font-size:28px;
   writing-mode:vertical-rl; text-orientation:mixed;
   white-space:nowrap;
 }
 .turn-label span{display:inline-block;}
 .turn-label .score{
-  font-weight:600; font-size:clamp(14px, 2vw, 18px);
+  font-weight:600; font-size:28px;
   color:var(--accent); writing-mode:vertical-rl;
   text-orientation:mixed; display:inline-block;
   margin-top:1.5em;
 }
 .score{
-  font-size:clamp(14px, 2vw, 18px); font-weight:600;
+  font-size: 28px; font-weight:600;
   color:var(--accent); writing-mode:vertical-rl;
   text-orientation:mixed; white-space:nowrap;
+}
+
+.hud-row__wrapper {
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* Buttons */
@@ -68,7 +77,7 @@ body{
   background:#fff; color:var(--text);
   padding:8px 12px; border-radius:8px; font-weight:600;
   cursor:pointer; transition: all .2s ease; box-shadow: none;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
 }
 .btn:hover{ border-color:var(--accent); color:#fff; background:var(--accent); box-shadow:0 10px 20px rgba(255,106,0,.18); }
 .btn:active,
@@ -107,13 +116,19 @@ body{
   padding:20px;
 }
 .modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 400px;
   background:var(--card); border-radius:20px;
   padding:32px; max-width:500px; width:100%;
   box-shadow:var(--shadow);
   text-align:center;
 }
-.modal-title{font-size:24px; font-weight:700; margin:0 0 8px 0; color:var(--text);}
-.modal-subtitle{font-size:16px; color:var(--muted); margin:0 0 24px 0;}
+.modal-title{font-size:40px; font-weight:700; margin:0 0 8px 0; color:var(--text);}
+.modal-subtitle{font-size:28px; color:var(--muted); margin:0 0 24px 0;}
 .modal-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
 
 /* Игровой контейнер */
@@ -171,6 +186,20 @@ body{
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
   z-index: 100;
   transition: all 0.15s ease-out;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .player::before {
@@ -186,10 +215,10 @@ body{
 }
 
 /* Цвета игроков */
-.player-red { background: #FE112E; }
-.player-green { background: #2ED573; }
-.player-yellow { background: #FFE23F; }
-.player-blue { background: #1E6FE3; }
+.player-red { border: 5px solid #FE112E; }
+.player-green { border: 5px solid #2ED573; }
+.player-yellow { border: 5px solid #FFE23F; }
+.player-blue { border: 5px solid #1E6FE3; }
 
 /* Неразрушаемые блоки */
 .wall {
@@ -333,7 +362,7 @@ body{
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 16px;
+  font-size: 20px;
   min-width: 100px;
 }
 
@@ -381,9 +410,12 @@ body{
 
 .player-controls {
   position: absolute;
+  width: 350px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 0.5rem;
   padding: 1rem;
   background: var(--card);
@@ -391,7 +423,6 @@ body{
   border: 2px solid var(--line);
   box-shadow: var(--shadow);
   min-width: 200px;
-  max-width: 200px;
   pointer-events: auto;
   box-sizing: border-box;
 }
@@ -420,7 +451,7 @@ body{
 }
 
 .player-controls .player-info {
-  font-size: 16px;
+  font-size: 28px;
   padding: 8px 12px;
   border-radius: 8px;
   font-weight: 600;
@@ -432,9 +463,10 @@ body{
 
 .player-controls .control-buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 110px 110px;
   gap: 0.5rem;
   width: 100%;
+  justify-content: center;
 }
 
 .player-controls .control-btn {
@@ -447,9 +479,9 @@ body{
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 24px;
-  width: 80px;
-  height: 80px;
+  font-size: 32px;
+  width: 110px;
+  height: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -460,6 +492,7 @@ body{
   width: 100%;
   background: rgba(255, 106, 0, 0.1);
   border-color: var(--accent);
+  margin-top: 20px;
 }
 
 .player-controls .control-btn:hover {
@@ -632,7 +665,7 @@ body{
   }
   
   .turn-label {
-    font-size: 12px;
+    font-size: 28px;
   }
   
   .score {

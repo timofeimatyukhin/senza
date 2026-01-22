@@ -155,15 +155,15 @@ body {
   border: 2px solid var(--line);
   box-shadow: var(--shadow);
   min-width: 250px;
-  max-width: 250px;
   pointer-events: auto;
   box-sizing: border-box;
-  max-width: min(150px, calc((100vw - 180px) / 2 - 40px));
+  width: 500px;
+  height: 500px;
 }
 
 .player-label {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 28px;
   color: var(--text);
   margin-bottom: 0.5rem;
 }
@@ -180,12 +180,12 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
-  width: 100%;
+  width: auto;
 }
 
 .player-btn {
-  width: 100px;
-  height: 100px;
+  width: 170px;
+  height: 170px;
   border: 3px solid var(--line);
   border-radius: 12px;
   cursor: pointer;
@@ -230,7 +230,7 @@ body {
 
 /* Статус игрока */
 .player-status {
-  font-size: 18px;
+  font-size: 38px;
   font-weight: 600;
   margin-top: 0.5rem;
 }
@@ -296,9 +296,18 @@ body {
   min-height: 0;
 }
 
+.hud-row__wrapper {
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .turn-label {
   font-weight: 600;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   writing-mode: vertical-rl;
   text-orientation: mixed;
   white-space: nowrap;
@@ -310,7 +319,7 @@ body {
 
 .turn-label .score {
   font-weight: 600;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   color: var(--accent);
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -334,9 +343,10 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all .2s ease;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   font-family: inherit;
 }
+
 
 .btn:hover {
   background: var(--line);
@@ -368,6 +378,8 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   align-self: center;
+  font-size: 28px;
+
 }
 
 .hud .btn:hover {
@@ -445,24 +457,28 @@ body {
 }
 
 .modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   background: var(--card);
   border-radius: 16px;
   padding: 2rem;
-  max-width: 400px;
-  width: 90%;
+  width: 600px;
+  height: 650px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
 .modal-title {
-  font-size: 24px;
+  font-size: 38px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 0.5rem;
 }
 
 .modal-subtitle {
-  font-size: 16px;
+  font-size: 28px;
   color: #666;
   margin-bottom: 2rem;
 }
@@ -500,7 +516,7 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 14px;
+  font-size: 28px;
   min-width: 100px;
 }
 
@@ -520,7 +536,7 @@ body {
 .start-game-btn {
   margin-top: 20px;
   padding: 12px 24px;
-  font-size: 16px;
+  font-size: 28px;
   font-weight: 600;
 }
 
@@ -534,6 +550,11 @@ body {
   gap: 1rem;
   justify-content: center;
   margin-top: 2rem;
+}
+
+.modal-end {
+  width: 600px;
+  height: 400px;
 }
 
 /* Анимации */
@@ -662,6 +683,7 @@ body {
   .modal {
     padding: 1.5rem;
   }
+  
   
   .difficulty-options {
     grid-template-columns: 1fr;

@@ -1,20 +1,23 @@
 // ТЕННИС - полноэкранная версия
 (() => {
+  
+  const BALL_IMAGE_PATH = '../../../shared/img/logo_ruj.png'; // путь к изображению мяча
+  
   // ТЕСТОВЫЙ РЕЖИМ (измените на false для отключения)
-  const TEST_MODE = false;
+  const TEST_MODE = false; 
   
   // КОНФИГУРАЦИЯ ИГРЫ
   const GAME_CONFIG = {
     name: 'Теннис',
     icon: '🎾',
-    maxScore: 15,
+    maxScore: 5,
     ballSpeed: {
       min: 1,
       max: 4
     },
-    paddleSpeed: 4,
-    ballSize: 20,
-    paddleSize: { width: 20, height: 80 },
+    paddleSpeed: 8,
+    ballSize: 50, 
+    paddleSize: { width: 30, height: 240 },
     bonusSpawnInterval: 10000, // 10 секунд
     bonusLifetime: 30000 // 30 секунд
   };
@@ -26,9 +29,9 @@
     isPlaying: false,
     gamePhase: 'selecting', // 'selecting', 'playing', 'finished'
     isWin: false,
-    ball: { x: 0, y: 0, vx: 0, vy: 0, size: 20, color: 'black' },
-    paddleLeft: { x: 0, y: 0, width: 20, height: 80 },
-    paddleRight: { x: 0, y: 0, width: 20, height: 80 },
+    ball: { x: 0, y: 0, vx: 0, vy: 0, size: 50, color: 'black' },
+    paddleLeft: { x: 0, y: 0, width: 30, height: 240 },
+    paddleRight: { x: 0, y: 0, width: 30, height: 240 },
     fieldWidth: 0,
     fieldHeight: 0,
     gameLoop: null,
@@ -39,7 +42,7 @@
     bonuses: [],
     bonusTimers: { spawn: null, lifetime: null },
     activeBonuses: { left: [], right: [] },
-    originalPaddleHeight: 80,
+    originalPaddleHeight: 240,
     originalBallSpeed: { min: 2, max: 8 }
   };
 
@@ -76,7 +79,9 @@
         <div class="score-display" id="scoreDisplay">0 - 0</div>
         <div class="paddle paddle-left" id="paddleLeft"></div>
         <div class="paddle paddle-right" id="paddleRight"></div>
-        <div class="ball" id="ball"></div>
+        <div class="ball" id="ball">
+          <img src="" alt="" class="ball-image" id="ballImage">
+        </div>
         <div class="touch-area touch-area-left" id="touchAreaLeft"></div>
         <div class="touch-area touch-area-right" id="touchAreaRight"></div>
       </div>
@@ -88,6 +93,24 @@
     paddleRightElement = document.getElementById('paddleRight');
     hudCheckLeft = document.getElementById('hudCheckLeft');
     hudCheckRight = document.getElementById('hudCheckRight');
+    
+    // Устанавливаем изображение мяча
+    const ballImage = document.getElementById('ballImage');
+    if (ballImage) {
+      if (BALL_IMAGE_PATH) {
+        ballImage.src = BALL_IMAGE_PATH;
+        ballImage.onload = () => {
+          console.log('✅ Изображение мяча загружено:', BALL_IMAGE_PATH);
+          // Убираем фон когда изображение загрузилось
+          ballElement.style.background = 'transparent';
+        };
+        ballImage.onerror = () => {
+          console.error('❌ Ошибка загрузки изображения мяча:', BALL_IMAGE_PATH);
+        };
+      } else {
+        console.log('ℹ️ Путь к изображению мяча не указан, используется градиент');
+      }
+    }
   }
 
   // ОБЯЗАТЕЛЬНЫЕ ФУНКЦИИ
@@ -324,9 +347,9 @@
     const bonus = {
       id: Date.now(),
       type: randomBonus,
-      x: Math.random() * (gameState.fieldWidth - 90) + 45, // Учитываем новый размер
-      y: Math.random() * (gameState.fieldHeight - 90) + 45, // Учитываем новый размер
-      size: 90, // Увеличиваем в 3 раза (30 * 3 = 90)
+      x: Math.random() * (gameState.fieldWidth - 100) + 50,
+      y: Math.random() * (gameState.fieldHeight - 100) + 50,
+      size: 80,
       spawnTime: Date.now()
     };
     
@@ -354,8 +377,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
-      box-shadow: 0 0 45px ${bonus.type.color}80;
+      font-size: 40px;
+      box-shadow: 0 0 40px ${bonus.type.color}80;
       z-index: 5;
       animation: bonusPulse 1s infinite;
     `;
@@ -923,8 +946,8 @@
     if (side === 'left' && ball.vx < 0) {
       // Мяч движется влево и пересекает вертикальную линию ракетки
       if (prevX + ball.size >= paddleRight && ballRight <= paddleRight) {
-        // Проверяем пересечение по Y
-        if (ballBottom >= paddleTop && ballTop <= paddleBottom) {
+        // Проверяем пересечение по Y (включая касание краев)
+        if (ballBottom > paddleTop && ballTop < paddleBottom) {
           // Корректируем позицию мяча
           ball.x = paddleRight;
           ball.vx = Math.abs(ball.vx) * 1.1;
@@ -947,8 +970,8 @@
     if (side === 'right' && ball.vx > 0) {
       // Мяч движется вправо и пересекает вертикальную линию ракетки
       if (prevX <= paddleLeft && ballLeft >= paddleLeft) {
-        // Проверяем пересечение по Y
-        if (ballBottom >= paddleTop && ballTop <= paddleBottom) {
+        // Проверяем пересечение по Y (включая касание краев)
+        if (ballBottom > paddleTop && ballTop < paddleBottom) {
           // Корректируем позицию мяча
           ball.x = paddleLeft - ball.size;
           ball.vx = -Math.abs(ball.vx) * 1.1;
@@ -1044,8 +1067,7 @@
     gameState.ball.vy = (Math.random() - 0.5) * 2;
     gameState.ball.color = 'black'; // Сбрасываем цвет мяча
     
-    // Сбрасываем все бонусы при голе
-    resetAllBonuses();
+    // НЕ сбрасываем бонусы при голе - ракетки сохраняют размеры
     
     // Удаляем все бонусы с поля
     gameState.bonuses.forEach(bonus => {

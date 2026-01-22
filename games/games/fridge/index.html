@@ -3,28 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Холодильник</title>
+  <title>Полное включение</title>
   <style>
     html, body { height: 100%; touch-action: pan-x pan-y; overscroll-behavior: none; }
     * { touch-action: pan-x pan-y; }
   </style>
   <link rel="stylesheet" href="../../shared/styles/fonts.css" />
+  <link rel="stylesheet" href="../../../shared/styles/click-effect.css">
+  <link rel="stylesheet" href="../../../shared/styles/variables.css">
+  <script src="../../../shared/scripts/click-effect.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- HUD Left -->
   <aside class="hud hud-left">
     <div class="hud-row">
-      <button class="btn btn-ghost" id="btnBackLeft">← Меню</button>
-      <div class="hud-center">
-        <div class="turn-label">
-          <span id="turnLabelLeft">
-            <span class="icon-emoji">🧊</span> Холодильник
-          </span>
-          <span class="score" id="scoreLeft">Ходы: 0</span>
-          </div>
+      <div class="hud-row__wrapper">
+        <button class="btn btn-ghost" id="btnBackLeft">← Меню</button>
+        <div class="hud-center">
+          <div class="turn-label">
+            <span id="turnLabelLeft">
+              <span class="icon-emoji">💡</span> Полное включение
+            </span>
+            <span class="score" id="scoreLeft">Ходы: 0</span>
+            </div>
+        </div>
+        <button class="btn" id="btnNewLeft">Новая партия ↻</button>
       </div>
-      <button class="btn" id="btnNewLeft">Новая партия ↻</button>
     </div>
   </aside>
 
@@ -40,16 +45,18 @@
   <!-- HUD Right (повёрнут на 180°) -->
   <aside class="hud hud-right">
     <div class="hud-row hud-rotated">
-      <button class="btn btn-ghost" id="btnBackRight">← Меню</button>
-      <div class="hud-center">
-        <div class="turn-label">
-          <span id="turnLabelRight">
-            <span class="icon-emoji">🧊</span> Холодильник
-          </span>
-          <span class="score" id="scoreRight">Ходы: 0</span>
+      <div class="hud-row__wrapper">
+        <button class="btn btn-ghost" id="btnBackRight">← Меню</button>
+        <div class="hud-center">
+          <div class="turn-label">
+            <span id="turnLabelRight">
+              <span class="icon-emoji">💡</span> Полное включение
+            </span>
+            <span class="score" id="scoreRight">Ходы: 0</span>
+          </div>
         </div>
+        <button class="btn" id="btnNewRight">Новая партия ↻</button>
       </div>
-      <button class="btn" id="btnNewRight">Новая партия ↻</button>
     </div>
   </aside>
 

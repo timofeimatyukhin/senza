@@ -73,7 +73,7 @@ body{
 }
 .turn-label{
   font-weight:600;
-  font-size:clamp(14px, 2vw, 18px);
+  font-size: 28px;
   writing-mode:vertical-rl;
   text-orientation:mixed;
   white-space:nowrap;
@@ -81,7 +81,7 @@ body{
 .turn-label span{display:inline-block;}
 .turn-label .score{
   font-weight:600;
-  font-size:clamp(14px, 2vw, 18px);
+  font-size: 28px;
   color:var(--accent);
   writing-mode:vertical-rl;
   text-orientation:mixed;
@@ -334,7 +334,7 @@ body{
   font-weight: 600;
   cursor: pointer;
   transition: all .2s ease;
-  font-size: clamp(12px, 1.5vw, 16px);
+  font-size: 28px;
 }
 
 .hud-check-btn:hover {
@@ -388,6 +388,7 @@ body{
 
 /* Модальные окна */
 .modal-backdrop {
+  justify-content: space-between;
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.28);
@@ -397,12 +398,22 @@ body{
   z-index: 2000;
 }
 
+.modal-backdrop__wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .modal-backdrop.hidden {
   display: none !important;
 }
 
 .modal {
-  width: min(90vw, 520px);
+  width: 800px;
+  height: 500px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 24px;
@@ -419,7 +430,7 @@ body{
 
 .modal-title {
   margin: 0 0 8px;
-  font-size: 28px;
+  font-size: 38px;
   font-weight: 700;
   text-align: center;
 }
@@ -428,7 +439,7 @@ body{
   margin: 0 0 24px;
   color: var(--muted);
   text-align: center;
-  font-size: 16px;
+  font-size: 26px;
 }
 
 .modal-actions {
@@ -440,7 +451,7 @@ body{
 
 /* Сетка выбора сложности */
 .difficulty-grid {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 12px;
   margin: 24px 0;
@@ -473,7 +484,7 @@ body{
 
 .difficulty-name {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 22px;
   margin-bottom: 4px;
 }
 
@@ -548,11 +559,11 @@ body{
   }
   
   .turn-label {
-    font-size: clamp(14px, 2vw, 18px);
+    font-size: 28px;
   }
   
   .turn-label .score {
-    font-size: clamp(14px, 2vw, 18px);
+    font-size: 28px;
   }
   
   .hud .btn,

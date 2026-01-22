@@ -1,5 +1,11 @@
 // МИНЁР - многопользовательская игра в стиле Бомбермена
 (() => {
+  // ПУТИ К ИЗОБРАЖЕНИЯМ ИГРОКОВ (оставьте пустыми, если не нужны изображения)
+  const PLAYER_IMAGE_RED = '../../../shared/img/logo_ruj.png'; // Вставьте сюда путь к изображению для красного игрока
+  const PLAYER_IMAGE_GREEN = '../../../shared/img/logo_ruj.png'; // Вставьте сюда путь к изображению для зелёного игрока
+  const PLAYER_IMAGE_YELLOW = '../../../shared/img/logo_ruj.png'; // Вставьте сюда путь к изображению для жёлтого игрока
+  const PLAYER_IMAGE_BLUE = '../../../shared/img/logo_ruj.png'; // Вставьте сюда путь к изображению для синего игрока
+  
   // КОНФИГУРАЦИЯ ИГРЫ
   const GAME_CONFIG = {
     name: 'Минёр',
@@ -207,10 +213,10 @@
     
     addButtonHandler(btnNewLeft, resetGame);
     addButtonHandler(btnNewRight, resetGame);
-    addButtonHandler(btnBackLeft, () => window.location.href = '../index.html');
-    addButtonHandler(btnBackRight, () => window.location.href = '../index.html');
+    addButtonHandler(btnBackLeft, () => window.location.href = '../../index.html');
+    addButtonHandler(btnBackRight, () => window.location.href = '../../index.html');
     addButtonHandler(btnRematch, resetGame);
-    addButtonHandler(btnToMenu, () => window.location.href = '../index.html');
+    addButtonHandler(btnToMenu, () => window.location.href = '../../index.html');
 
     // Управление игроками с кнопок (мультитач)
     const activeButtons = new Set();
@@ -743,6 +749,26 @@
           if (player.alive && player.x === x && player.y === y) {
             const playerDiv = document.createElement('div');
             playerDiv.className = `player player-${player.color.name}`;
+            
+            // Добавление изображения, если путь указан
+            const imagePath = player.color.name === 'red' ? PLAYER_IMAGE_RED :
+                            player.color.name === 'green' ? PLAYER_IMAGE_GREEN :
+                            player.color.name === 'yellow' ? PLAYER_IMAGE_YELLOW :
+                            player.color.name === 'blue' ? PLAYER_IMAGE_BLUE : '';
+            
+            if (imagePath) {
+              const img = document.createElement('img');
+              img.className = 'player-image';
+              img.src = imagePath;
+              img.onload = () => {
+                playerDiv.style.background = 'transparent';
+              };
+              img.onerror = () => {
+                console.error(`Ошибка загрузки изображения для ${player.color.name} игрока:`, imagePath);
+              };
+              playerDiv.appendChild(img);
+            }
+            
             cellDiv.appendChild(playerDiv);
           }
         });
@@ -757,7 +783,7 @@
   
   // ГЛОБАЛЬНАЯ ФУНКЦИЯ ДЛЯ НАВИГАЦИИ
   window.goToMenu = () => {
-    window.location.href = '../index.html';
+    window.location.href = '../../index.html';
   };
 })();
 

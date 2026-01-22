@@ -9,17 +9,22 @@
     * { touch-action: pan-x pan-y; }
   </style>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../../../shared/styles/click-effect.css">
+  <link rel="stylesheet" href="../../../shared/styles/variables.css">
+  <script src="../../../shared/scripts/click-effect.js"></script>
 </head>
 <body>
   <!-- HUD Left -->
   <aside class="hud hud-left">
     <div class="hud-row">
-      <button class="btn btn-ghost" id="btnBackLeft">← Меню</button>
-      <div class="hud-center">
-        <div class="turn-label"><span id="turnLabelLeft">💣 Минёр</span></div>
-        <div class="score" id="scoreLeft">Время: 3:00</div>
+      <div class="hud-row__wrapper">
+        <button class="btn btn-ghost" id="btnBackLeft">← Меню</button>
+        <div class="hud-center">
+          <div class="turn-label"><span id="turnLabelLeft">💣 Минёр</span></div>
+          <div class="score" id="scoreLeft">Время: 3:00</div>
+        </div>
+        <button class="btn" id="btnNewLeft">Новая партия ↻</button>
       </div>
-      <button class="btn" id="btnNewLeft">Новая партия ↻</button>
     </div>
   </aside>
 
@@ -35,12 +40,14 @@
   <!-- HUD Right (повёрнут на 180°) -->
   <aside class="hud hud-right">
     <div class="hud-row hud-rotated">
-      <button class="btn btn-ghost" id="btnBackRight">← Меню</button>
-      <div class="hud-center">
-        <div class="turn-label"><span id="turnLabelRight">💣 Минёр</span></div>
-        <div class="score" id="scoreRight">Время: 3:00</div>
+      <div class="hud-row__wrapper">
+        <button class="btn btn-ghost" id="btnBackRight">← Меню</button>
+        <div class="hud-center">
+          <div class="turn-label"><span id="turnLabelRight">💣 Минёр</span></div>
+          <div class="score" id="scoreRight">Время: 3:00</div>
+        </div>
+        <button class="btn" id="btnNewRight">Новая партия ↻</button>
       </div>
-      <button class="btn" id="btnNewRight">Новая партия ↻</button>
     </div>
   </aside>
 

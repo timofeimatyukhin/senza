@@ -424,7 +424,7 @@
     console.log('Создаем змей для', gameState.currentPlayers, 'игроков');
     gameState.snakes = [];
     const startPositions = [
-      { x: 10, y: 10, direction: GAME_CONFIG.directions.RIGHT }, // Центр для 1 игрока
+      { x: 10, y: 14, direction: GAME_CONFIG.directions.RIGHT }, // Центр для 1 игрока (ниже бублика)
       { x: 2, y: 2, direction: GAME_CONFIG.directions.RIGHT },   // Левый верх для 2 игроков
       { x: 17, y: 2, direction: GAME_CONFIG.directions.LEFT },   // Правый верх для 2 игроков
       { x: 2, y: 17, direction: GAME_CONFIG.directions.RIGHT },  // Левый низ для 3 игроков

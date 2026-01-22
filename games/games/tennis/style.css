@@ -80,10 +80,19 @@ body {
 
 .turn-label {
   font-weight: 600;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   writing-mode: vertical-rl;
   text-orientation: mixed;
   white-space: nowrap;
+}
+
+.hud-row__wrapper {
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .turn-label span {
@@ -92,7 +101,7 @@ body {
 
 .turn-label .score {
   font-weight: 600;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   color: var(--accent);
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -117,7 +126,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all .2s ease;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 28px;
   font-family: inherit;
 }
 
@@ -305,11 +314,11 @@ body {
 /* Ракетки */
 .paddle {
   position: absolute;
-  width: 20px;
-  height: 80px;
+  width: 30px;
+  height: 240px;
   background: var(--accent);
   border-radius: 10px;
-  transition: all 0.1s ease;
+  transition: all 0.02s ease;
 }
 
 .paddle-left {
@@ -329,12 +338,27 @@ body {
 /* Мяч */
 .ball {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
   background: linear-gradient(45deg, #fff, #f0f0f0);
   border-radius: 50%;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 15px rgba(255,255,255,0.3);
   border: 2px solid #e5e7eb;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ball-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 /* Счёт */
@@ -343,7 +367,7 @@ body {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 24px;
+  font-size: 58px;
   font-weight: 600;
   color: var(--text);
   text-align: center;
@@ -368,25 +392,29 @@ body {
 }
 
 .modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 550px;
+  height: 550px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 24px;
-  max-width: 400px;
-  width: 90%;
   text-align: center;
   box-shadow: var(--shadow);
 }
 
 .modal-title {
-  font-size: 24px;
+  font-size: 40px;
   font-weight: 600;
   margin-bottom: 8px;
   color: var(--text);
 }
 
 .modal-subtitle {
-  font-size: 16px;
+  font-size: 28px;
   color: var(--neutral-color);
   margin-bottom: 24px;
 }
@@ -407,7 +435,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all .2s ease;
-  font-size: 16px;
+  font-size: 24px;
   font-family: inherit;
 }
 
@@ -477,13 +505,13 @@ body {
   }
   
   .paddle {
-    width: 16px;
-    height: 60px;
+    width: 30px;
+    height: 240px ;
   }
   
   .ball {
-    width: 16px;
-    height: 16px;
+    width: 50px;
+    height: 50px;
   }
   
   .score-display {

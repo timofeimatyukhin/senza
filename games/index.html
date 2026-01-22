@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Senza Games - Игровая платформа</title>
     <link rel="stylesheet" href="../shared/styles/fonts.css">
+    <link rel="stylesheet" href="../shared/styles/click-effect.css">
+    <link rel="stylesheet" href="../shared/styles/variables.css">
+    <script src="../shared/scripts/click-effect.js"></script>
     <link rel="icon" href="../shared/img/logo_ruj.png">
     <style>
         :root { 
@@ -12,6 +15,8 @@
             --red-dark:#C1032A; 
             --red:#FE112E; 
             --orange:#FE7800; 
+            --orange-30: rgba(254, 120, 0, 0.3);
+            --orange-50: rgba(254, 120, 0, 0.5);
             --yellow:#FFE23F; 
             /* Дополнительные цвета */
             --blue:#1E6FE3; 
@@ -50,13 +55,13 @@
         .hero h1{font-family:'Bowler','Involve',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1.05;margin:0 0 16px;text-align:center}
         .hero p.lead{font-size:clamp(16px,2.2vw,20px);color:var(--muted);margin:0 0 26px;text-align:center}
 
-        .btn{appearance:none;border:none;cursor:pointer;padding:14px 20px;border-radius:14px;background:var(--orange);color:#fff;font-weight:700;box-shadow:var(--shadow);transform:translateY(0);transition:transform .15s ease,box-shadow .2s ease,background .2s ease;text-decoration:none;display:inline-block}
+        .btn{display: flex; align-items: center;width: 140px; height: 60px; appearance:none;border:none;cursor:pointer;padding:14px 20px;border-radius:14px;background:var(--orange);color:#fff;font-weight:700;font-size: 20px;box-shadow:var(--shadow);transform:translateY(0);transition:transform .15s ease,box-shadow .2s ease,background .2s ease;text-decoration:none;display:inline-block}
         .btn:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(254,120,0,0.35);text-decoration:none}
         .btn:active{transform:translateY(0);box-shadow:0 6px 20px rgba(254,120,0,0.35)}
 
         .section{padding:56px 0}
         .section h2{font-family:'Bowler','Involve',sans-serif;font-size:clamp(28px,3.6vw,40px);margin:0 0 18px;text-align:center}
-        .section p.section-lead{color:var(--muted);margin:0 0 12px;text-align:center}
+        .section p.section-lead{color:var(--muted);margin:0 0 12px;text-align:center; font-size: 20px;}
 
         .games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px}
         .game-card{background:var(--card);border:1px solid rgba(0,0,0,0.06);border-radius:20px;padding:32px;text-decoration:none;color:var(--text);transition:all 0.3s ease;box-shadow:var(--shadow);position:relative;overflow:hidden;text-align:center}
@@ -79,14 +84,14 @@
 <body>
     <header class="header">
         <div class="container header-inner">
-            <div class="logo-wrap">
-                <img src="../shared/img/logo_ru_horizontal.png" alt="Senza Games" />
-                <div class="brand">Senza Games</div>
+            <div style="display: flex; align-items: center; gap: 12px;" class="logo-wrap">
+                <img style="width: 180px; height: 103px;" src="../shared/img/logo_ru_horizontal.png" alt="Senza Games" />
+                <div style="font-size: 26px;" class="brand">Senza Games</div>
             </div>
-            <nav class="nav">
-                <a href="../index.html">← Главная</a>
-                <a href="../website/index.html">🌐 О продукте</a>
-                <a href="#games">🎮 Игры</a>
+            <nav style="display: flex; align-items: center; gap: 30px;" class="nav">
+                <a style="color: var(--text); font-size: 26px; background: linear-gradient(75deg, var(--orange),var(--bg)); display: block; padding: 16px 16px; border-radius: 15px;" href="../index.html">← Главная</a>
+                <a style="color: var(--text); font-size: 26px; background: linear-gradient(75deg, var(--orange),var(--bg)); display: block; padding: 16px 16px; border-radius: 15px;" href="../website/index.html">🌐 О продукте</a>
+                <a style="color: var(--text); font-size: 26px; background: linear-gradient(75deg, var(--orange),var(--bg)); display: block; padding: 16px 16px; border-radius: 15px;" href="#games">🎮 Игры</a>
             </nav>
         </div>
     </header>
@@ -104,74 +109,134 @@
             <p class="section-lead">Выберите игру и начните играть прямо сейчас</p>
             
             <div class="games-grid">
-                <div class="game-card">
-                    <span class="icon">🎯</span>
-                    <h3>Охота на круги</h3>
-                    <p>Развивающая игра на реакцию и внимание. Нажимайте на появляющиеся кружки как можно быстрее!</p>
-                    <a href="games/hunt-circles/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">2</span>
+                    </div>                    
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🎯</span>
+                        <h3 style="font-weight: 700;">Охота на круги</h3>
+                        <p style="font-size: 20px;">Развивающая игра на реакцию и внимание. Нажимайте на появляющиеся кружки как можно быстрее!</p>
+                        <a href="games/hunt-circles/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">🐍</span>
-                    <h3>Змейка</h3>
-                    <p>Классическая игра на логику. Управляйте змейкой и собирайте еду, не врезаясь в стены.</p>
-                    <a href="games/snake/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">1-2</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🐍</span>
+                        <h3 style="font-weight: 700;">Змейка</h3>
+                        <p style="font-size: 20px;">Классическая игра на логику. Управляйте змейкой и собирайте еду, не врезаясь в стены.</p>
+                        <a href="games/snake/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">🎨</span>
-                    <h3>Запомни цвет</h3>
-                    <p>Тренировка памяти и внимания. Запомните цвет и найдите все клетки этого цвета на поле.</p>
-                    <a href="games/remember-color/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">1-2</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🎨</span>
+                        <h3 style="font-weight: 700;">Запомни цвет</h3>
+                        <p style="font-size: 20px;">Тренировка памяти и внимания. Запомните цвет и найдите все клетки этого цвета на поле.</p>
+                        <a href="games/remember-color/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">❌⭕</span>
-                    <h3>Крестики-нолики</h3>
-                    <p>Стратегическая игра для двоих. Соберите 3 в ряд и выиграйте у соперника!</p>
-                    <a href="games/tictactoe/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">2</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">❌⭕</span>
+                        <h3 style="font-weight: 700;">Крестики-нолики</h3>
+                        <p style="font-size: 20px;">Стратегическая игра для двоих. Соберите 3 в ряд и выиграйте у соперника!</p>
+                        <a href="games/tictactoe/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">🧊</span>
-                    <h3>Холодильник</h3>
-                    <p>Логическая головоломка. Расставьте продукты в холодильнике по правилам.</p>
-                    <a href="games/fridge/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">1</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">💡</span>
+                        <h3 style="font-weight: 700;">Полное включение</h3>
+                        <p style="font-size: 20px;">Логическая головоломка. Включите всё поле: каждый ход зажигает ряды и столбцы.</p>
+                        <a href="games/fridge/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">🤖</span>
-                    <h3>Сёма</h3>
-                    <p>Развивающая игра для детей. Помогите роботу Сёме выполнить все задания!</p>
-                    <a href="games/syoma/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">1-4</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🔢</span>
+                        <h3 style="font-weight: 700;">Цветовой код</h3>
+                        <p style="font-size: 20px;">Проверка памяти. Запомните последовательность цветов и повторите её без ошибок!</p>
+                        <a href="games/syoma/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">🎾</span>
-                    <h3>Теннис</h3>
-                    <p>Классическая игра Pong с сенсорным управлением. Счёт до 15 очков!</p>
-                    <a href="games/tennis/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">2</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🎾</span>
+                        <h3 style="font-weight: 700;">Теннис</h3>
+                        <p style="font-size: 20px;">Классическая игра Pong с сенсорным управлением. Счёт до 15 очков!</p>
+                        <a href="games/tennis/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">🏒</span>
-                    <h3>Шайба</h3>
-                    <p>Хоккейная игра для двоих! Переместите все шайбы на сторону соперника. Поддержка мультитача!</p>
-                    <a href="games/shaiba/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">2</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">🏒</span>
+                        <h3 style="font-weight: 700;">Шайба</h3>
+                        <p style="font-size: 20px;">Хоккейная игра для двоих! Переместите все шайбы на сторону соперника. Поддержка мультитача!</p>
+                        <a href="games/shaiba/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">💣</span>
-                    <h3>Минёр</h3>
-                    <p>Бомбермен для 2-4 игроков! Ставьте бомбы, взрывайте блоки и оставайтесь последними выжившими!</p>
-                    <a href="games/miner/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">2-4</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">💣</span>
+                        <h3 style="font-weight: 700;">Минёр</h3>
+                        <p style="font-size: 20px;">Бомбермен для 2-4 игроков! Ставьте бомбы, взрывайте блоки и оставайтесь последними выжившими!</p>
+                        <a href="games/miner/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
                 
-                <div class="game-card">
-                    <span class="icon">✈️</span>
-                    <h3>Самолёты</h3>
-                    <p>Воздушные бои для 2-4 игроков! Управляйте самолётом, поворачивайте и стреляйте по противникам!</p>
-                    <a href="games/planes/index.html" class="btn">Играть</a>
+                <div class="game-card" styles="position: relative;">                 
+                    <div style="position: absolute; top: 5%; right: 5%; display: flex; align-items: center; background: var(--gray-dark-30); color: #000; padding: 4px 8px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);">
+                        <img style="width: 30px; height: 30px;" src="../shared/img/users.svg" alt="">
+                        <span style="margin-left: 5px; font-size: 20px; font-weight: 500; font-family: Involve;">2-4</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%;">
+                        <span class="icon">✈️</span>
+                        <h3 style="font-weight: 700;">Самолёты</h3>
+                        <p style="font-size: 20px;">Воздушные бои для 2-4 игроков! Управляйте самолётом, поворачивайте и стреляйте по противникам!</p>
+                        <a href="games/planes/index.html" class="btn">Играть</a>
+                    </div>
                 </div>
             </div>
         </div>
